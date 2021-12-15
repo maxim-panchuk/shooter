@@ -15,6 +15,15 @@ RESET.addEventListener("click", () => {
 GRAPH.addEventListener("click", (event) => {
     if (radius != null) {
         drawDot(radius, GRAPH, RECT, event)
+        let xCor = (event.clientX - RECT.left)
+        let yCor = (event.clientY - RECT.top)
+        let currentX = (xCor - 175) / (140 / radius)
+        let currentY = -(yCor - 175) / (140 / radius)
+
+        document.forms[1][1].value = currentX.toFixed(3)
+        document.forms[1][2].value = currentY.toFixed(3)
+        document.forms[1][3].value = radius
+        document.forms[1][4].click();
     }
 })
 
