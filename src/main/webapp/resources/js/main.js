@@ -1,20 +1,65 @@
-localStorage.setItem("dots", JSON.stringify([]))
-localStorage.setItem("lastname", "-1")
+//localStorage.setItem("dots", JSON.stringify([]))
+//localStorage.setItem("lastname", "-1")
 
 
 const GRAPH = document.getElementById("area-graph")
 const RECT = GRAPH.getBoundingClientRect()
 const RESET = document.forms[0][9]
+const SEND = document.forms[0][8]
+
 
 let radius = null
 
 RESET.addEventListener("click", () => {
     localStorage.setItem("dots", JSON.stringify([]))
+    localStorage.setItem("lastname", "-1")
 })
+
+SEND.addEventListener("click", () => {
+
+    // Еще добавить валижацию JS перед тем как идти дальше
+
+    let currentX = document.forms[0][1].value
+    let currentY = document.forms[0][2].value
+    let xVal = currentX * (140 / radius) + 175
+    let yVal = -(currentY * 140 / radius) + 175
+
+    let storedDots = JSON.parse(localStorage.getItem("dots"))
+    let lastName = parseInt(localStorage.getItem("lastname"))
+    localStorage.setItem("lastname", lastName + 1)
+    let newDot = new Dot({
+        name: lastName + 1,
+        x: currentX,
+        y: currentY
+    })
+    storedDots.push(newDot)
+    localStorage.setItem("dots", JSON.stringify(storedDots))
+    updSVG(GRAPH, parseFloat(currentX), parseFloat(currentY))
+})
+
+function drawDot(radius, GRAPH, RECT, event) {
+    let storedDots = JSON.parse(localStorage.getItem("dots"))
+    let xCor = (event.clientX - RECT.left)
+    let yCor = (event.clientY - RECT.top)
+    let currentX = (xCor - 175) / (140 / radius)
+    let currentY = -(yCor - 175) / (140 / radius)
+    let lastName = parseInt(localStorage.getItem("lastname"))
+    localStorage.setItem("lastname", lastName + 1)
+    let newDot = new Dot({
+        name: lastName + 1,
+        x: currentX.toFixed(3),
+        y: currentY.toFixed(3)
+    })
+    storedDots.push(newDot)
+    localStorage.setItem("dots", JSON.stringify(storedDots))
+    updSVG(GRAPH, xCor, yCor)
+}
+
 
 GRAPH.addEventListener("click", (event) => {
     if (radius != null) {
         drawDot(radius, GRAPH, RECT, event)
+
         let xCor = (event.clientX - RECT.left)
         let yCor = (event.clientY - RECT.top)
         let currentX = (xCor - 175) / (140 / radius)
@@ -45,24 +90,6 @@ document.forms[0].addEventListener("click", (event) => {
         updDots(GRAPH, radius)
     }
 })
-
-function drawDot(radius, GRAPH, RECT, event) {
-    let storedDots = JSON.parse(localStorage.getItem("dots"))
-    let xCor = (event.clientX - RECT.left)
-    let yCor = (event.clientY - RECT.top)
-    let currentX = (xCor - 175) / (140 / radius)
-    let currentY = -(yCor - 175) / (140 / radius)
-    let lastName = parseInt(localStorage.getItem("lastname"))
-    localStorage.setItem("lastname", lastName + 1)
-    let newDot = new Dot({
-        name: lastName + 1,
-        x: currentX.toFixed(3),
-        y: currentY.toFixed(3)
-    })
-    storedDots.push(newDot)
-    localStorage.setItem("dots", JSON.stringify(storedDots))
-    updSVG(GRAPH, xCor, yCor)
-}
 
 function updDots(GRAPH, radius) {
     let storedDots = JSON.parse(localStorage.getItem("dots"))
