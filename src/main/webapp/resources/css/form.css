@@ -1,0 +1,12 @@
+.send {
+    background-color: #a6cbff;
+    border-color: #a6cbff;
+    border-radius: 5px;
+}
+
+.reset {
+    margin-left: 10px;
+    background-color: #868d93;
+    border-color: #868d93;
+    border-radius: 5px;
+}

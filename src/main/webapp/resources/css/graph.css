@@ -1,0 +1,12 @@
+.coordinate-axis, .coordinates-marker {
+    stroke: #17171a;
+    stroke-width:2
+}
+
+.coordinates-figure {
+    fill: #6c757d;
+}
+
+.svg-coordinates {
+    margin-top: 100px;
+}

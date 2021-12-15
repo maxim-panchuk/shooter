@@ -1,0 +1,30 @@
+<div>
+<h:dataTable xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f = "http://java.sun.com/jsf/core"
+            value="#{resultTable.points}" var="row"
+             styleClass = "pointTable"
+             headerClass = "pointTableHeader"
+             rowClasses = "pointTableOddRow,employeeTableEvenRow">
+    <h:column>
+        <f:facet name="header">X</f:facet>
+        <h:outputText value="#{row.x}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">Y</f:facet>
+        <h:outputText value="#{row.y}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">R</f:facet>
+        <h:outputText value="#{row.r}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">Время</f:facet>
+        <h:outputText value="#{row.time}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">Результат</f:facet>
+        <h:outputText value="#{row.result}" />
+    </h:column>
+
+</h:dataTable>
+</div>
