@@ -1,5 +1,6 @@
 package com.panchuk.shooter.business;
 
+import com.panchuk.shooter.business.utils.PointService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,15 +17,25 @@ import java.util.ArrayList;
 @Setter
 @ToString
 public class ResultTable {
-    private ArrayList<Point> points;
+    private ArrayList<Point> points = new ArrayList<>();
 
     @Inject
     private UserInput userInput;
 
     public void add() {
         if (valid()) {
-            System.out.println(userInput.getXVal() + " " + userInput.getYVal() + " " + userInput.getRVal());
+            Point point = new Point();
+            point.setX(Double.parseDouble(userInput.getXVal()));
+            point.setY(Double.parseDouble(userInput.getYVal()));
+            point.setR(Double.parseDouble(userInput.getRVal()));
+            PointService pointService = new PointService(point);
+            pointService.handle();
+            points.add(point);
         }
+    }
+
+    public void clear() {
+        points.clear();
     }
 
     private boolean valid() {
