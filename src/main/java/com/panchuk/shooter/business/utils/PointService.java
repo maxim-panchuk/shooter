@@ -1,7 +1,6 @@
 package com.panchuk.shooter.business.utils;
 
-import com.panchuk.shooter.business.Point;
-import com.panchuk.shooter.business.UserInput;
+import com.panchuk.shooter.business.model.Point;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

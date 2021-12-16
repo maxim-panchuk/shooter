@@ -1,5 +1,6 @@
 package com.panchuk.shooter.business;
 
+import com.panchuk.shooter.business.model.Point;
 import com.panchuk.shooter.business.utils.PointService;
 import lombok.Getter;
 import lombok.Setter;
