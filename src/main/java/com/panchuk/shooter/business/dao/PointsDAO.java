@@ -1,6 +1,7 @@
 package com.panchuk.shooter.business.dao;
 
 import com.panchuk.shooter.business.model.Point;
+import com.panchuk.shooter.business.utils.PortForwarder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,7 +14,10 @@ public class PointsDAO implements DAO {
 
     private final EntityManager em;
 
+
+
     public PointsDAO() {
+        PortForwarder.connect();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         em = emf.createEntityManager();
     }
