@@ -3,14 +3,14 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="hibernate">
+    <persistence-unit name="persistence">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>com.panchuk.shooter.business.model.Point</class>
         <properties>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>
-            <property name="hibernate.connection.username" value="postgres"/>
-            <property name="hibernate.connection.password" value="postgres"/>
+            <property name="hibernate.connection.username" value="maksimpancuk"/>
+            <property name="hibernate.connection.password" value="kilibok47Hromo$"/>
 
             <!--            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5430/studs"/>-->
             <!--            <property name="hibernate.connection.username" value="s311690"/>-->

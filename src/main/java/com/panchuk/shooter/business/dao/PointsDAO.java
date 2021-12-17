@@ -5,9 +5,11 @@ import com.panchuk.shooter.business.model.Point;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PointsDAO implements DAO<Point> {
+public class PointsDAO implements DAO {
 
     private final EntityManager em;
 
@@ -17,21 +19,49 @@ public class PointsDAO implements DAO<Point> {
     }
 
     public void add(Point point) {
-        em.getTransaction().begin();
-        em.persist(point);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            begin();
+            em.persist(point);
+            em.flush();
+            end();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        }
     }
 
     public List<Point> getAll () {
-        em.getTransaction().begin();
-        @SuppressWarnings("unchecked")
-        List<Point> list = em.createQuery("from Point").getResultList();
-        em.close();
-        return null;
+        try {
+            begin();
+            @SuppressWarnings("unchecked")
+            List<Point> resultList = em.createQuery("SELECT point FROM Point point").getResultList();
+            end();
+            return resultList;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 
     public void clear() {
+        try {
+            begin();
+            Query query = em.createQuery("delete FROM Point");
+            query.executeUpdate();
+            end();
+        } catch (Exception unexpected) {
+            unexpected.printStackTrace();
+        }
+    }
 
+    private void begin() {
+        em.getTransaction().begin();
+    }
+
+    private void end() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().commit();
+        } else {
+            throw new RuntimeException("Inactive transaction");
+        }
     }
 }

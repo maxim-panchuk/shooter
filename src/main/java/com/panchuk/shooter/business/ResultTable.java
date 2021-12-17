@@ -1,5 +1,6 @@
 package com.panchuk.shooter.business;
 
+import com.panchuk.shooter.business.dao.PointsDAO;
 import com.panchuk.shooter.business.model.Point;
 import com.panchuk.shooter.business.utils.PointService;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Named
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 @Setter
 @ToString
 public class ResultTable {
-    private ArrayList<Point> points = new ArrayList<>();
+    private List<Point> points;
 
     @Inject
     private UserInput userInput;
@@ -31,12 +33,16 @@ public class ResultTable {
             point.setR(Double.parseDouble(userInput.getRVal()));
             PointService pointService = new PointService(point);
             pointService.handle();
-            points.add(point);
+            PointsDAO pointsDAO = new PointsDAO();
+            pointsDAO.add(point);
+            points = pointsDAO.getAll();
         }
     }
 
     public void clear() {
-        points.clear();
+        PointsDAO pointsDAO = new PointsDAO();
+        pointsDAO.clear();
+        points = new ArrayList<>();
     }
 
     private boolean valid() {

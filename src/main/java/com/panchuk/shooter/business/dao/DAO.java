@@ -4,8 +4,8 @@ import com.panchuk.shooter.business.model.Point;
 
 import java.util.List;
 
-public interface DAO <Entity> {
-    void add(Entity entity);
+public interface DAO {
+    void add(Point entity);
     List<Point> getAll();
     void clear();
 }
