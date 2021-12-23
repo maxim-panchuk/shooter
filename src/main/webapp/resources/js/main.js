@@ -1,14 +1,26 @@
 //localStorage.setItem("dots", JSON.stringify([]))
 //localStorage.setItem("lastname", "-1")
-
+let radius = null
 
 const GRAPH = document.getElementById("area-graph")
 const RECT = GRAPH.getBoundingClientRect()
 const RESET = document.forms[0][9]
 const SEND = document.forms[0][8]
 
-
-let radius = null
+window.addEventListener("load", ()=>{
+    radius = localStorage.getItem("radius")
+    if (radius != null) {
+        let neg = document.querySelectorAll(".negative-coords")
+        let pos = document.querySelectorAll(".positive-coords")
+        pos.forEach(element => {
+            element.innerHTML = `${radius}`
+        })
+        neg.forEach(element => {
+            element.innerHTML = `-${radius}`
+        })
+        updDots(GRAPH, radius)
+    }
+})
 
 RESET.addEventListener("click", () => {
     localStorage.setItem("dots", JSON.stringify([]))
@@ -74,11 +86,13 @@ GRAPH.addEventListener("click", (event) => {
 
 document.forms[0].addEventListener("click", (event) => {
     if (event.target && event.target.matches("input[type='radio']")) {
+
         for (let i = 0; i < 5; i++) {
             if (document.forms[0][3 + i].checked === true) {
                 radius = document.forms[0][3 + i].value
             }
         }
+        localStorage.setItem("radius", radius);
         let neg = document.querySelectorAll(".negative-coords")
         let pos = document.querySelectorAll(".positive-coords")
         pos.forEach(element => {
@@ -97,19 +111,29 @@ function updDots(GRAPH, radius) {
     for (let i = 0; i < storedDots.length; i++) {
         let x = parseFloat(storedDots[i]["x"])
         let y = parseFloat(storedDots[i]["y"])
-
         let xVal = x * (140 / radius) + 175
         let yVal = -(y * 140 / radius) + 175
         updSVG(GRAPH, xVal, yVal)
     }
 }
-function updSVG(GRAPH, xVal, yVal) {
+function updSVG(GRAPH, x, y) {
     let dot = document.createElementNS("http://www.w3.org/2000/svg", "circle")
-    dot.setAttribute("cx", xVal);
-    dot.setAttribute("cy", yVal);
+    dot.setAttribute("cx", x);
+    dot.setAttribute("cy", y);
     dot.setAttribute("r", "3");
-    dot.setAttribute("stroke", "#AD2D2D");
-    dot.setAttribute("fill", "#AD2D2D");
+    let currentX = (x - 175) / (140 / radius)
+    let currentY = -(y - 175) / (140 / radius)
+    if (currentX <= 0 && currentY >= 0 && Math.sqrt(Math.pow(currentX, 2)
+            + Math.pow(currentY, 2)) <= radius / 2 ||
+        currentX <= 0 && currentY <= 0 && currentX >= -radius && currentY >= -radius ||
+        currentX >= 0 && currentY <= 0 && currentY >= (currentX - radius)) {
+        dot.setAttribute("stroke", "#00ff32");
+        dot.setAttribute("fill", "#00ff32");
+    }
+    else {
+        dot.setAttribute("stroke", "#AD2D2D");
+        dot.setAttribute("fill", "#AD2D2D");
+    }
     GRAPH.appendChild(dot)
 }
 class Dot {
@@ -125,4 +149,6 @@ class Dot {
         console.log("Name: " + this.name + " x: " + this.x + " y: " + this.y)
     }
 }
+
+
 
