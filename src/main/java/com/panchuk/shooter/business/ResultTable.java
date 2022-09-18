@@ -36,7 +36,6 @@ public class ResultTable {
             PointsDAO pointsDAO = new PointsDAO();
             pointsDAO.add(point);
             points = pointsDAO.getAll();
-            System.out.println(points);
         }
     }
 
@@ -54,12 +53,6 @@ public class ResultTable {
                 double r = Double.parseDouble(userInput.getRVal());
 
                 if (y < 3.0 && y > -5.0) {
-                    return true;
-                }
-                if (x <= 3 && x >=-3) {
-                    return true;
-                }
-                if (r <= 3.0 && r >= 1.0) {
                     return true;
                 }
             } catch (NumberFormatException e) {
