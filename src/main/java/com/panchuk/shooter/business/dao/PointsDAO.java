@@ -19,12 +19,14 @@ public class PointsDAO implements DAO {
     }
 
     public void add(Point point) {
+        System.out.println(point);
         try {
             begin();
             em.persist(point);
             em.flush();
             end();
         } catch (Exception e) {
+            System.out.println("Ошибка добавления");
             em.getTransaction().rollback();
             e.printStackTrace();
         }
