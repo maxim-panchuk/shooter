@@ -11,6 +11,8 @@ public class PointService {
     private final double y;
     private final double r;
 
+
+
     public PointService (Point point) {
         this.point = point;
         x = point.getX();
@@ -24,8 +26,8 @@ public class PointService {
         point.setTime(currentTime);
     }
 
-    private boolean isInArea () {
-       return x <= 0 && y >= 0 && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) <= r / 2 ||
+    public boolean isInArea () {
+        return x <= 0 && y >= 0 && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) <= r / 2 ||
                 x <= 0 && y <= 0 && x >= -r && y >= -r ||
                 x >= 0 && y <= 0 && y >= (x - r);
     }
