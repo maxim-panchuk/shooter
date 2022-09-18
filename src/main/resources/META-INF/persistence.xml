@@ -8,9 +8,9 @@
         <class>com.panchuk.shooter.business.model.Point</class>
         <properties>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>
-            <property name="hibernate.connection.username" value="maksimpancuk"/>
-            <property name="hibernate.connection.password" value="kilibok47Hromo$"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/shoot"/>
+            <property name="hibernate.connection.username" value="postgres"/>
+            <property name="hibernate.connection.password" value="password"/>
 
             <!--            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5430/studs"/>-->
             <!--            <property name="hibernate.connection.username" value="s311690"/>-->
