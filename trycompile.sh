@@ -18,7 +18,7 @@ do
     ((counter = counter + 1))
     ARG1="$counter""p"
     COMMIT_HASH_NEXT=$(git log | grep "commit " | head -$N | awk '{print $2}' | sed -n $ARG1)
-    echo "NEXT COMMIT HAS IS: " "$COMMIT_HASH_NEXT"
+    echo "NEXT COMMIT HASH IS: " "$COMMIT_HASH_NEXT"
     git diff "$COMMIT_HASH" "$COMMIT_HASH_NEXT" > file
     break
   fi
