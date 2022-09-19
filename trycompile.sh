@@ -23,3 +23,5 @@ do
     break
   fi
 done
+
+git checkout master
