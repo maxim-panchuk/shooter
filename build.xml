@@ -52,12 +52,19 @@
         </junit>
     </target>
 
-
-
-
     <target name="clean"
             description="удаление скомпилированных классов проекта и всех временных файлов (если они есть)">
         <delete dir="build"/>
+    </target>
+
+    <target name="history" description="если проект не удаётся скомпилировать (цель compile),
+    загружается предыдущая версия из репозитория git. Операция повторяется до тех пор, пока проект не удастся собрать,
+    либо не будет получена самая первая ревизия из репозитория. Если такая ревизия найдена,
+    то формируется файл, содержащий результат операции diff для всех файлов, измёненных в ревизии,
+    следующей непосредственно за последней работающей." depends="build">
+        <exec executable="/bin/bash">
+            <arg value="trycompile.sh"/>
+        </exec>
     </target>
 
     <target name="resolve" description="--> retreive dependencies with ivy">
