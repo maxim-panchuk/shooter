@@ -8,9 +8,12 @@ do
   git checkout "$COMMIT_HASH"
   git checkout master build.xml
   git checkout master temps.properties
-  ant build
+  ant build &
+  pid=$!
+  wait $pid
+  stat=$?
 
-  if  [ -d ./build/mispi-3.jar ];
+  if [ $stat -eq 0 ]
   then
     echo "BUILD SUCCESSFUL OF COMMIT: " "$COMMIT_HASH"
     touch file
@@ -21,6 +24,8 @@ do
     echo "NEXT COMMIT HASH IS: " "$COMMIT_HASH_NEXT"
     git diff "$COMMIT_HASH" "$COMMIT_HASH_NEXT" > file
     break
+  else
+    echo "CHECKOUT NEXT COMMIT"
   fi
 done
 
