@@ -8,7 +8,7 @@ do
   git checkout "$COMMIT_HASH"
   git checkout master build.xml
   git checkout master temps.properties
-  ant build &
+  ant build > /dev/null &
   pid=$!
   wait $pid
   stat=$?
