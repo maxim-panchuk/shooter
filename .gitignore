@@ -1,2 +1,4 @@
 # Project exclude paths
 /target/
+build.xml
+trycompile.sh

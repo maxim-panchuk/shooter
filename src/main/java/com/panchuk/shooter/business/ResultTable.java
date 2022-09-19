@@ -42,7 +42,19 @@ public class ResultTable {
     public void clear() {
         PointsDAO pointsDAO = new PointsDAO();
         pointsDAO.clear();
-        po
+        points = new ArrayList<>();
+    }
+
+    private boolean valid() {
+        if (userInput != null && userInput.getXVal() != null && userInput.getYVal() != null && userInput.getRVal() != null) {
+            try {
+                double x = Double.parseDouble(userInput.getXVal());
+                double y = Double.parseDouble(userInput.getYVal());
+                double r = Double.parseDouble(userInput.getRVal());
+
+                if (y < 3.0 && y > -5.0) {
+                    return true;
+                }
             } catch (NumberFormatException e) {
                 return false;
             }
