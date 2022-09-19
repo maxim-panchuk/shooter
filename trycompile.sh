@@ -10,7 +10,7 @@ do
   git checkout master temps.properties
   ant build
 
-  if  [ -d ./build/ ];
+  if  [ -d ./build/mispi-3.jar ];
   then
     echo "BUILD SUCCESSFUL OF COMMIT: " "$COMMIT_HASH"
     touch file
